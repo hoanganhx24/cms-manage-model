@@ -9,8 +9,11 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ProviderResponse {
+public class ModelDetailResponse {
     String id;
-    String name;
-    String base_url;
+    String display_name;
+    String original_name;
+    String api_key;
+    Boolean is_enabled;
+    ProviderResponse provider;
 }

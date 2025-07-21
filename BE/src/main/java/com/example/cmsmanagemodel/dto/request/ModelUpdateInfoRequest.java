@@ -1,4 +1,4 @@
-package com.example.cmsmanagemodel.dto.response;
+package com.example.cmsmanagemodel.dto.request;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -9,8 +9,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ProviderResponse {
-    String id;
-    String name;
-    String base_url;
+public class ModelUpdateInfoRequest {
+    String display_name;
+    String original_name;
+    String api_key;
 }
