@@ -20,4 +20,8 @@ public class User {
     String id;
     String username;
     String password;
+    String email;
+    String firstName;
+    String lastName;
+    Role role;
 }

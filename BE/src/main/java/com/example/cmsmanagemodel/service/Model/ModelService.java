@@ -8,8 +8,8 @@ import com.example.cmsmanagemodel.dto.response.PageResponse;
 
 public interface ModelService {
     ModelResponse createModel(ModelCreateRequest request);
-    PageResponse<ModelDetailResponse> getModels(String display_name, String provider_id, int page, int pageSize);
-    ModelResponse enableModel(String model_id);
-    ModelResponse disableModel(String model_id);
-    ModelResponse updateInfoModel(String model_id, ModelUpdateInfoRequest request);
+    PageResponse<ModelResponse> getModels(String keyword, String providerId, int page, int pageSize);
+    ModelResponse enableModel(String modelId);
+    ModelResponse disableModel(String modelId);
+    ModelResponse updateInfoModel(String modelId, ModelUpdateInfoRequest request);
 }

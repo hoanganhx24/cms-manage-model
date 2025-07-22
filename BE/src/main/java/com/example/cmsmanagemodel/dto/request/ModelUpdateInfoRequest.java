@@ -10,7 +10,6 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ModelUpdateInfoRequest {
-    String display_name;
-    String original_name;
-    String api_key;
+    String displayName;
+    String modelCode;
 }

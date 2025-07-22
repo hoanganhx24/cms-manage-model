@@ -12,5 +12,6 @@ import lombok.experimental.FieldDefaults;
 public class ProviderResponse {
     String id;
     String name;
-    String base_url;
+    String apiKey;
+    String baseUrl;
 }

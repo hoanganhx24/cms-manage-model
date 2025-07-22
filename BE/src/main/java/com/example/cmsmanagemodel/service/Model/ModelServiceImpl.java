@@ -2,7 +2,6 @@ package com.example.cmsmanagemodel.service.Model;
 
 import com.example.cmsmanagemodel.dto.request.ModelCreateRequest;
 import com.example.cmsmanagemodel.dto.request.ModelUpdateInfoRequest;
-import com.example.cmsmanagemodel.dto.response.ModelDetailResponse;
 import com.example.cmsmanagemodel.dto.response.ModelResponse;
 import com.example.cmsmanagemodel.dto.response.PageResponse;
 import com.example.cmsmanagemodel.entity.Model;
@@ -37,23 +36,22 @@ public class ModelServiceImpl implements ModelService {
         var provider = providerRepository.findById(request.getProvider_id())
                 .orElseThrow(() -> new EntityNotFoundException("Provider not found"));
         Model model = Model.builder()
-                .original_name(request.getOriginal_name())
-                .display_name(request.getDisplay_name())
-                .api_key(request.getApi_key())
-                .is_enabled(true)
+                .modelCode(request.getModelCode())
+                .displayName(request.getDisplayName())
+                .enabled(true)
                 .provider(provider)
                 .build();
         return modelMapper.toModelResponse(modelRepository.save(model));
     }
 
     @Override
-    public PageResponse<ModelDetailResponse> getModels(String display_name, String provider_id, int page, int pageSize) {
+    public PageResponse<ModelResponse> getModels(String keyword, String providerId, int page, int pageSize) {
         Sort sort = Sort.unsorted();
         Pageable  pageable = PageRequest.of(page, pageSize, sort);
-        Specification<Model> spec = ModelSpecification.build(display_name, provider_id);
+        Specification<Model> spec = ModelSpecification.build(keyword, providerId);
         Page<Model> pageResult = modelRepository.findAll(spec, pageable);
-        List<ModelDetailResponse> content = modelMapper.toModelDetailResponseList(pageResult.getContent());
-        return PageResponse.<ModelDetailResponse>builder()
+        List<ModelResponse> content = modelMapper.toModelResponseList(pageResult.getContent());
+        return PageResponse.<ModelResponse>builder()
                 .content(content)
                 .page(page)
                 .size(pageSize)
@@ -67,18 +65,18 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public ModelResponse enableModel(String model_id) {
-        var model = modelRepository.findById(model_id)
+    public ModelResponse enableModel(String modelId) {
+        var model = modelRepository.findById(modelId)
                 .orElseThrow(() -> new EntityNotFoundException("Model not found"));
-        model.setIs_enabled(true);
+        model.setEnabled(true);
         return modelMapper.toModelResponse(modelRepository.save(model));
     }
 
     @Override
-    public ModelResponse disableModel(String model_id) {
-        var model = modelRepository.findById(model_id)
+    public ModelResponse disableModel(String modelId) {
+        var model = modelRepository.findById(modelId)
                 .orElseThrow(() -> new EntityNotFoundException("Model not found"));
-        model.setIs_enabled(false);
+        model.setEnabled(false);
         return modelMapper.toModelResponse(modelRepository.save(model));
     }
 
@@ -86,14 +84,11 @@ public class ModelServiceImpl implements ModelService {
     public ModelResponse updateInfoModel(String model_id, ModelUpdateInfoRequest request) {
         var model = modelRepository.findById(model_id)
                 .orElseThrow(() -> new EntityNotFoundException("Model not found"));
-        if (request.getDisplay_name() != null && !request.getDisplay_name().isEmpty()) {
-            model.setDisplay_name(request.getDisplay_name());
+        if (request.getDisplayName() != null && !request.getDisplayName().isEmpty()) {
+            model.setDisplayName(request.getDisplayName());
         }
-        if (request.getOriginal_name() != null && !request.getOriginal_name().isEmpty()) {
-            model.setOriginal_name(request.getOriginal_name());
-        }
-        if (request.getApi_key() != null && !request.getApi_key().isEmpty()) {
-            model.setApi_key(request.getApi_key());
+        if (request.getModelCode() != null && !request.getModelCode().isEmpty()) {
+            model.setModelCode(request.getModelCode());
         }
         return modelMapper.toModelResponse(modelRepository.save(model));
     }

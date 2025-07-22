@@ -28,13 +28,13 @@ public class ModelController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<PageResponse<ModelDetailResponse>>> getModels(
-            @RequestParam(required = false) String display_name,
-            @RequestParam(required = false) String provider_id,
+    public ResponseEntity<ApiResponse<PageResponse<ModelResponse>>> getModels(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String providerId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int pageSize
     ){
-        return ResponseHelper.success(modelService.getModels(display_name, provider_id, page, pageSize), "Lay thanh cong danh sach Model");
+        return ResponseHelper.success(modelService.getModels(keyword, providerId, page, pageSize), "Lay thanh cong danh sach Model");
     }
 
     @PatchMapping("/{id}/enable")
@@ -44,7 +44,7 @@ public class ModelController {
 
     @PatchMapping("/{id}/disable")
     public ResponseEntity<ApiResponse<ModelResponse>> disableModel(@PathVariable String id){
-        return ResponseHelper.success(modelService.disableModel(id), "Cho phep model duoc tiep tuc su dung");
+        return ResponseHelper.success(modelService.disableModel(id), "Vo hieu hoa model thanh cong");
     }
 
     @PatchMapping("/{id}/updateInfo")

@@ -15,5 +15,8 @@ public class ProviderCreateRequest {
     String name;
 
     @NotBlank
-    String base_url;
+    String apiKey;
+
+    @NotBlank
+    String baseUrl;
 }

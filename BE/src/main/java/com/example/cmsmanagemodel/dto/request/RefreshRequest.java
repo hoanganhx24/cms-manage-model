@@ -10,13 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ModelCreateRequest {
+public class RefreshRequest {
     @NotBlank
-    String modelCode;
-
-    @NotBlank
-    String displayName;
-
-    @NotBlank
-    String provider_id;
+    String token;
 }

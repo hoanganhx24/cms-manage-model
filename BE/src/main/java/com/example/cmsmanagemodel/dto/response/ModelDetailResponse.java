@@ -11,9 +11,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ModelDetailResponse {
     String id;
-    String display_name;
-    String original_name;
-    String api_key;
-    Boolean is_enabled;
+    String modelCode;
+    String displayName;
+    Boolean enabled;
     ProviderResponse provider;
 }

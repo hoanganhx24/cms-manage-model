@@ -34,7 +34,8 @@ public class ProviderServiceImpl implements ProviderService {
     public ProviderResponse createProvider(ProviderCreateRequest request) {
         Provider provider = Provider.builder()
                 .name(request.getName())
-                .base_url(request.getBase_url())
+                .baseUrl(request.getBaseUrl())
+                .apiKey(request.getApiKey())
                 .build();
         return providerMapper.toProviderResponse(providerRepository.save(provider));
     }
@@ -46,8 +47,11 @@ public class ProviderServiceImpl implements ProviderService {
         if (request.getName() != null && !request.getName().isEmpty()) {
             provider.setName(request.getName());
         }
-        if (request.getBase_url() != null && !request.getBase_url().isEmpty()) {
-            provider.setBase_url(request.getBase_url());
+        if (request.getBaseUrl() != null && !request.getBaseUrl().isEmpty()) {
+            provider.setBaseUrl(request.getBaseUrl());
+        }
+        if (request.getApiKey() != null && !request.getApiKey().isEmpty()) {
+            provider.setApiKey(request.getApiKey());
         }
         return providerMapper.toProviderResponse(providerRepository.save(provider));
     }

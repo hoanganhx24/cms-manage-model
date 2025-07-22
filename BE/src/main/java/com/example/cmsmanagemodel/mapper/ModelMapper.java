@@ -1,6 +1,5 @@
 package com.example.cmsmanagemodel.mapper;
 
-import com.example.cmsmanagemodel.dto.response.ModelDetailResponse;
 import com.example.cmsmanagemodel.dto.response.ModelResponse;
 import com.example.cmsmanagemodel.entity.Model;
 import org.mapstruct.Mapper;
@@ -12,6 +11,5 @@ import java.util.List;
 @Component
 public interface ModelMapper {
     ModelResponse toModelResponse(Model model);
-    ModelDetailResponse toModelDetailResponse(Model model);
-    List<ModelDetailResponse> toModelDetailResponseList(List<Model> models);
+    List<ModelResponse> toModelResponseList(List<Model> models);
 }

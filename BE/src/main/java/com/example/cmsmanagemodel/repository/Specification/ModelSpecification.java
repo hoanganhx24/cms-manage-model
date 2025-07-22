@@ -6,25 +6,32 @@ import jakarta.persistence.criteria.Join;
 import org.springframework.data.jpa.domain.Specification;
 
 public class ModelSpecification {
-    public static Specification<Model> build(String display_name, String provider_id ) {
-        return hasDisplayName(display_name)
-                .and(hasProviderId(provider_id));
+    public static Specification<Model> build(String keyword, String providerId ) {
+        return hasKeyword(keyword)
+                .and(hasProviderId(providerId));
     }
 
-    public static Specification<Model> hasDisplayName(String display_name){
-        return (root, query, cb)
-                -> display_name == null ? null
-                : cb.like(cb.lower(root.get("display_name")), "%" + display_name.toLowerCase() + "%");
-    }
-
-    public static Specification<Model> hasProviderId(String provider_id){
+    public static Specification<Model> hasProviderId(String providerId){
         return (root, query, cb) -> {
-            if (provider_id == null){
+            if (providerId == null){
                 return null;
             }
             Join<Model, Provider> join = root.join("provider");
-            String pattern = "%" + provider_id.toLowerCase() + "%";
+            String pattern = "%" + providerId.toLowerCase() + "%";
             return cb.like(cb.lower(join.get("id")), pattern);
+        };
+    }
+
+    public static Specification<Model> hasKeyword(String keyword){
+        return (root, query, cb) -> {
+            if (keyword == null){
+                return null;
+            }
+            String pattern = "%" + keyword.toLowerCase() + "%";
+            return cb.or(
+                    cb.like(cb.lower(root.get("modelCode")), pattern),
+                    cb.like(cb.lower(root.get("displayName")), pattern)
+            );
         };
     }
 }

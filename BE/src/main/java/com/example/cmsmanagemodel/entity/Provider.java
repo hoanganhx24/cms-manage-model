@@ -21,23 +21,10 @@ public class Provider {
     String id;
 
     String name;
-    String base_url;
+    String apiKey;
+    String baseUrl;
 
-    LocalDateTime created_at;
-    LocalDateTime updated_at;
-
-    @PrePersist
-    public void prePersist() {
-        created_at = LocalDateTime.now();
-        updated_at = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        updated_at = LocalDateTime.now();
-    }
-
-    @OneToMany(mappedBy = "provider")
+    @OneToMany(mappedBy = "provider", fetch = FetchType.LAZY)
     @JsonManagedReference
     List<Model> models;
 
